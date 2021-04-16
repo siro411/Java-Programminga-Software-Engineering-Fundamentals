@@ -1,0 +1,239 @@
+<script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js">                   </script>
+<h1>Filter Fun</h1>
+<canvas id="canvas1"></canvas>
+<h2>Load Image</h2>
+<p><input type="file" multiple="false" accept="image/*" id="finput" onchange="imgUpload()">
+<h2>Choose Filter</h2>
+<p>
+  <input type="button" value="Greyscale" onclick="doGrey()" >
+  <input type="button" value="Red" onclick="doRed()">
+  
+  <input type="button" value="Rainbow" onclick="doRainbow()">
+  <input type="button" value="Blur" onclick="doBlur()">
+</p>
+<p>
+  <input type="button" value="Reset Image" onclick="doReset()" >    
+</p>
+
+canvas{
+  width:200px;
+  height:350px;
+  border: 1px solid ;
+}
+
+var imgOriginal=null;
+var imgGrey=null;
+var imgRed=null;
+var imgRbow=null;
+var imgReset=null;
+var imgBlur=null;
+var canvas;
+var finput;
+
+function imgUpload(){
+    finput=document.getElementById("finput");
+    canvas=document.getElementById("canvas1");
+    imgOriginal=new SimpleImage(finput);
+    imgGrey=new SimpleImage(finput);
+    imgRed=new SimpleImage(finput);
+    imgReset=new SimpleImage(finput);
+  imgRbow=new SimpleImage(finput);
+    imgBlur=new SimpleImage(finput);
+    imgOriginal.drawTo(canvas); 
+}
+
+function imageIsLoaded(img){
+  if (img == null  || ! img.complete()) {
+    return false;
+    }
+     else {
+       return true;
+     } 
+    
+}
+
+function doGrey(){
+     if(imageIsLoaded(imgGrey)){
+       filterGrey();
+       imgGrey.drawTo(canvas);
+     }else{
+    alert("Failed");
+     }
+}
+
+function filterGrey(){
+  for(var p of imgGrey.values()){
+    var avg=(p.getGreen()+p.getRed()+p.getBlue())/3;
+
+    p.setRed(avg);
+    p.setGreen(avg);
+    p.setBlue(avg);
+    }
+}
+
+function doRed(){
+  if(imageIsLoaded(imgRed)){
+       filterRed();
+       imgRed.drawTo(canvas);
+     }else{
+    alert("Failed");
+     }
+}
+
+function filterRed(){
+      for(var px of imgRed.values()){
+       var oripx=imgOriginal.getPixel(px.getX(),px.getY());
+       imgRed.setPixel(px.getX(),px.getY(),oripx);
+     }
+  for(var p of imgRed.values()){
+    avg=(p.getGreen()+p.getRed()+p.getBlue())/3
+    if(avg<128){ 
+    p.setRed(avg*2);
+    p.setGreen(0);
+    p.setBlue(0);
+    }else{
+    p.setRed(255);
+    p.setGreen(avg*2-255);
+    p.setBlue(avg*2-255);
+    }
+  }
+}
+
+
+function doReset(){
+       for(var px of imgReset.values()){
+       var oripx=imgOriginal.getPixel(px.getX(),px.getY());
+       imgReset.setPixel(px.getX(),px.getY(),oripx);}
+   imgReset.drawTo(canvas);
+}
+
+
+function doRainbow() {
+    if(imageIsLoaded(imgRbow)){
+      rainbowFilter();
+    }
+    imgRbow.drawTo(canvas);
+
+}
+
+function rainbowFilter(){
+  height=imgRbow.getHeight();
+  for(var p of imgRbow.values()){
+    avg=(p.getRed()+p.getBlue()+p.getRed())/3;
+    if(p.getY()<height/7){
+      if(avg<128){
+        p.setRed(2*avg);
+        p.setGreen(0);
+        p.setBlue(0);
+      }else{
+        p.setRed(255);
+        p.setGreen(2*avg-255);
+        p.setBlue(2*avg-255);
+      }
+    }else if(p.getY()<height*2/7){
+      if(avg<128){
+        p.setRed(2*avg);
+        p.setGreen(0.8*avg);
+        p.setBlue(0);
+      }else{
+        p.setRed(255);
+        p.setGreen(1.2*avg-51);
+        p.setBlue(2*avg-255);
+      }
+    }else if(p.getY()<height*3/7){
+      if(avg<128){
+        p.setRed(2*avg);
+        p.setGreen(2*avg);
+        p.setBlue(0);
+      }else{
+        p.setRed(255);
+        p.setGreen(255);
+        p.setBlue(2*avg-255);
+      }
+    }else if(p.getY()<height*4/7){
+      if(avg<128){
+        p.setRed(0);
+        p.setGreen(2*avg);
+        p.setBlue(0);
+      }else{
+        p.setRed(2*avg-255);
+        p.setGreen(255);
+        p.setBlue(2*avg-255);
+      }   
+    }else if(p.getY()<height*5/7){
+      if(avg<128){
+        p.setRed(0);
+        p.setGreen(0);
+        p.setBlue(2*avg);
+      }else{
+        p.setRed(2*avg-255);
+        p.setGreen(2*avg-255);
+        p.setBlue(255);
+      }   
+    }else if(p.getY()<height*6/7){
+      if(avg<128){
+        p.setRed(0.8*avg);
+        p.setGreen(0);
+        p.setBlue(2*avg);
+      }else{
+        p.setRed(1.2*avg-51);
+        p.setGreen(2*avg-255);
+        p.setBlue(255);
+      }   
+    }else{
+      if(avg<128){
+        p.setRed(1.6*avg);
+        p.setGreen(0);
+        p.setBlue(1.6*avg);
+      }else{
+        p.setRed(0.4*avg+153);
+        p.setGreen(2*avg-255);
+        p.setBlue(0.4*avg+153);
+      }  
+    }  
+  } 
+}
+
+function doBlur(){ 
+  if (imageIsLoaded(imgBlur)){
+     var output=blurFilter();
+     output.drawTo(canvas);
+     }
+  else{
+    alert("failed");
+  }
+}
+    
+function blurFilter(){ 
+  var width=imgBlur.getWidth();
+  var height=imgBlur.getHeight();
+  var output=new SimpleImage(width,height);
+  for(var p of output.values()){
+    var x=p.getX();
+    var y=p.getY();
+    var rn=Math.random();
+    if(rn>=0.5){
+    var xN=-Math.floor(Math.random() * 11);  
+    var yN=-Math.floor(Math.random() * 11);  
+      x=x+xN;
+      y=y+yN;
+      if(x>width){
+       x=width;
+      }
+      if(x<0){
+        x=0;
+      }
+      if(y>height){
+        y=height;
+      }
+      if(y<0){
+        y=0;
+      }
+      p.setRed(imgBlur.getPixel(x,y).getRed()); 
+      p.setGreen(imgBlur.getPixel(x,y).getGreen());
+      p.setBlue(imgBlur.getPixel(x,y).getBlue()); 
+     }
+  }
+  return output;
+}
+

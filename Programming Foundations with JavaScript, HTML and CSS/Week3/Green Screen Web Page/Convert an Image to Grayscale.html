@@ -1,0 +1,39 @@
+<script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"> 
+var image;
+function upload(){
+  var fileinput=document.getElementById("finput"); 
+  image=new SimpleImage(fileinput);
+  var canvas=document.getElementById("canvas1");
+  // canvas.width=image.getWidth();
+  // canvas.height=image.getHeight();
+  image.drawTo(canvas);
+}
+
+function makeGrey(){
+  for(var p of image.values()){
+    var avg=(p.getRed()+p.getGreen()+p.getBlue())/3;
+    p.setRed(avg);
+    p.setGreen(avg);
+    p.setBlue(avg);
+    
+  }
+    var imgcanvas=document.getElementById("canvas1");
+  image.drawTo(imgcanvas);
+  }
+  </script>
+<h1>Upload an image</h1>
+<canvas id="canvas1" ></canvas>
+<p>Filename
+<input type="file" multiple="false" id="finput" accept="image/*" onchange="upload()"></p>
+<input type="button" value="make grey"onclick="makeGrey()"/>
+
+
+<style>
+canvas{
+  width:200px;
+  height:100px;
+  border:1px solid lightgray;
+}
+<style>
+
+
