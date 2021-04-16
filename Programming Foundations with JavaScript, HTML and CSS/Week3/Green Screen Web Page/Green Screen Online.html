@@ -1,0 +1,62 @@
+<script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js">  
+var fimage,bimage;
+function fUpload(){
+ var finput=document.getElementById("finput");
+ var canvas=document.getElementById("canvas1");
+  fimage=new SimpleImage(finput);
+  fimage.drawTo(canvas); 
+}
+function bUpload(){
+ var binput=document.getElementById("binput");
+ var canvas=document.getElementById("canvas2");
+  bimage=new SimpleImage(binput);
+  bimage.drawTo(canvas);
+}
+
+function composeImg(){
+  if(fimage==null){
+    alert("foreimage is not loaded");
+  }
+    if(bimage==null){
+    alert("backimage is not loaded");
+  }
+  var output=new SimpleImage(fimage.getWidth(),fimage.getHeight());
+  for(p of fimage.values()){
+    var x=p.getX();
+    var y=p.getY();
+    if(p.getGreen()>p.getRed()+p.getBlue()){
+      var bPixel=bimage.getPixel(x,y);
+      output.setPixel(x,y,bPixel);
+    }
+    else{
+      output.setPixel(x,y,p);
+    }
+  }
+  var imgcanvas=document.getElementById("canvas1");
+  var ccanvas=document.getElementById("canvas2");
+  output.drawTo(imgcanvas);
+  ccanvas.getContext("2d").clearRect(0,0,bimage.getWidth(),bimage.getHeight());
+}
+
+function cleanCanvas(){
+ var imgcanvas=document.getElementById("canvas1"); imgcanvas.getContext("2d").clearRect(0,0,fimage.getWidth(),fimage.getHeight());
+}
+</script>
+<h1>Green Screen Web Page</h1>
+<canvas id="canvas1"></canvas>
+<canvas id="canvas2"></canvas>
+<p><input type="file" multiple="false" id="finput" accept="image/*" onchange="fUpload()">
+  <input type="file" multiple="false" id="binput" accept="image/*" onchange="bUpload()"></p>
+<p><input type="button" value="Create compose" onclick="composeImg()">
+  <input type="button" value="Clean canvas" onclick="cleanCanvas()">
+</p>
+
+<style>
+canvas{
+  width:384px;
+  height:216px;
+  border: 1px solid lightgrey;
+}
+</style>
+
+

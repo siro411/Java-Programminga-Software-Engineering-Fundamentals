@@ -1,0 +1,20 @@
+<canvas id="canvas1"></canvas>
+<input type="button" value="Change color" onclick="onclickclr()"/>
+<input type="color" id="clr" value="#0000FF" onchange="onchangeclr(this.value)" />
+<style>
+canvas{
+ width:300px;
+ height:150px;
+ border:1px solid;
+}
+</style>
+<script>
+function onchangeclr(value){
+ var canvas=document.getElementById("canvas1");
+ canvas.style.backgroundColor=value;
+}
+function onclickclr(){
+ var canvas=document.getElementById("canvas1");
+ canvas.style.backgroundColor="yellow";
+}
+</script>

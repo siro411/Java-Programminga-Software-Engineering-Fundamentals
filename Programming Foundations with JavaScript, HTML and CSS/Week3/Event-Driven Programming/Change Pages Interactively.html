@@ -1,0 +1,39 @@
+<div id="div1" class="orangeback">Here is div 1</div>
+<div id="div2" class="fuchsiaback">Here is div 2</div>
+<p><input type="button" value="Change Colors" onclick="changeColor()"/></p>
+<p><input type="button" value="Change Text" onclick="changeText()"/></p>
+<p><input type="button" value="Change Div style.color" onclick="changeDiv()"/></p>
+<p><input type="button" value="Change this value" onclick="this.value='Changed'"/></p>
+
+<style>
+	.orangeback{
+	background-color:orange;
+	}
+	.fuchsiaback{
+	background-color:fuchsia;
+	}
+	.blueback{
+	background-color:blue;
+	}
+	div{
+	 width:200px;
+	 margin:10px;
+	}
+</style>
+<script>
+function changeColor(){
+ var dd1=document.getElementById("div1");
+ dd1.className="blueback";
+}
+
+function changeText(){
+ var dd1=document.getElementById("div1");
+ dd1.innerHTML="Erste";
+}
+
+function changeDiv(){
+  var dd2=document.getElementById("div2");
+  dd2.style.color="yellow";
+}
+
+</script>

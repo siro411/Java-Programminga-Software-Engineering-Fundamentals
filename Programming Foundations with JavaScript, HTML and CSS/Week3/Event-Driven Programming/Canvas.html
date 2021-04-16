@@ -1,0 +1,65 @@
+1.Create Canvas Elements<br />
+2.Change Canvas Colors with Buttons<br />
+3.Add Shapes and Text to Canvas<br />
+4.Extra Challenge!<br />
+
+<h1 id="t1">Canvas practice</h1>
+<canvas id="div1" class="orangeback"></canvas>
+<canvas id="div2" class="fuchsiaback"></canvas>
+<div></div>
+<input type="button" value="changeColor" onclick="changeColor()"/>
+<input type="button" value="changeToBlue" onclick="doBlue()"/>
+<input type="button" value="changeToGreen" onclick="doGreen()"/>
+
+
+<style>
+canvas{
+  width:200px;
+  height:100px;
+  margin:10px;
+  border:1px solid lightgrey;
+  
+}
+
+.orangeback{
+  background-color:orange;
+}
+
+.fuchsiaback{
+  background-color:fuchsia;
+}
+.blueback{
+  background-color:blue;
+}
+input{
+  font-size:20pt;
+}
+</style>
+<script>
+function changeColor(){
+  var divElement1=document.getElementById("div1");
+  var divElement2=document.getElementById("div2");
+  //var ctx=div1.getContent
+  //ctx.fillStyle="blue";
+  divElement1.className="blueback";
+  divElement2.className="orangeback";
+  
+}
+
+function doBlue(){
+  var dd1=document.getElementById("div1");
+  dd1.style.backgroundColor="blue";
+  var ct=dd1.getContext("2d");
+  ct.fillStyle="yellow";
+  ct.fillRect(10,10,60,60);
+  ct.fillStyle="black";
+  ct.font="20px Arial";
+  ct.fillText("Hello",15,45);
+}
+function doGreen(){
+  var dd1=document.getElementById("div1");
+  var ct=dd1.getContext("2d");
+  //ct.clearRect(0,0,dd1.width,dd1.height);
+  dd1.style.backgroundColor="green";
+}
+</script>
