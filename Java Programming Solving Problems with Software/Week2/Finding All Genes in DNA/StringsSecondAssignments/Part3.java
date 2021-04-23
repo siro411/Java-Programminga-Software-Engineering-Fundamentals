@@ -33,7 +33,6 @@ public class Part3 {
     
     
     public void printAllGenes(String dna){
-        int startIndex=0;
         while(true){
             if(findGene(dna).isEmpty()){
                 break;
