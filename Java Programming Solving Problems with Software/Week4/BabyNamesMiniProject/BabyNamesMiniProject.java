@@ -31,7 +31,7 @@ public class BabyNamesMiniProject {
     }
     
     public int getRank(int year,String name,String gender){
-        FileResource fr=new FileResource("../testing/yob"+String.valueOf(year)+"short.csv");
+        FileResource fr=new FileResource("testing/yob"+String.valueOf(year)+"short.csv");
         int rank=0;
         for(CSVRecord rec:fr.getCSVParser(false)){
             if(rec.get(1).equals(gender)){
@@ -47,7 +47,7 @@ public class BabyNamesMiniProject {
     }
     
     public String getName(int year,int rank,String gender){
-        FileResource fr=new FileResource("../testing/yob"+String.valueOf(year)+"short.csv");
+        FileResource fr=new FileResource("testing/yob"+String.valueOf(year)+"short.csv");
         String name="NO NAME";
         int r=0;
         for(CSVRecord rec:fr.getCSVParser(false)){
@@ -111,7 +111,7 @@ public class BabyNamesMiniProject {
     }
     
     public int getTotalBirthsRankedHigher(int year,String name,String gender){
-        FileResource fr=new FileResource("../testing/yob"+String.valueOf(year)+"short.csv");
+        FileResource fr=new FileResource("testing/yob"+String.valueOf(year)+"short.csv");
         //int rank=0;
         int numBirth=0;
         for(CSVRecord rec:fr.getCSVParser(false)){
