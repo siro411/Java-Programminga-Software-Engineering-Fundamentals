@@ -9,8 +9,8 @@ import edu.duke.*;
 public class CaesarCipher {
     public String encrypt(String input,int key){
         String alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String fullAlpha=alpha+alpha.toLowerCase();
         String shiftedAlpha=alpha.substring(key)+alpha.substring(0,key);
-        String fullAlpha=alpha.toLowerCase();
         String fullShiftedAlpha=shiftedAlpha+shiftedAlpha.toLowerCase();
         StringBuilder sb=new StringBuilder(input);
         for(int i=0;i<sb.length();i++){
@@ -25,7 +25,7 @@ public class CaesarCipher {
     public String encryptTwoKeys(String input,int key1,int key2){
         StringBuilder sb=new StringBuilder(input);
         String alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String fullAlpha=alpha.toLowerCase();
+        String fullAlpha=alpha+alpha.toLowerCase();
         for(int i=0;i<sb.length();i+=2){
             String shiftedAlpha=alpha.substring(key1)+alpha.substring(0,key1);
             String fullShiftedAlpha=shiftedAlpha+shiftedAlpha.toLowerCase(); 
