@@ -77,6 +77,101 @@ public class LogAnalyzer
          return uniqueIpsRanges.size();
      }
      
+     public HashMap<String, Integer> countVisitsPerIP(){
+        HashMap<String, Integer> counts=new HashMap<String, Integer>();
+        for(LogEntry le:records){
+            String ip=le.getIpAddress();
+            if(!counts.containsKey(ip)){
+                counts.put(ip,1);            
+            }else{
+                counts.put(ip,counts.get(ip)+1);
+            }
+        }
+        return counts;
+     }
      
+     public int mostNumberVisitsByIP(HashMap<String, Integer> countsIP){
+         int maxCounts=0;
+         for(String k:countsIP.keySet()){
+            if(countsIP.get(k)>maxCounts){
+            maxCounts=countsIP.get(k);
+            }
+            }
+         return maxCounts;
+        }
+     public ArrayList<String> iPsMostVisits(HashMap<String, Integer> countsIP){ 
+        ArrayList<String> maxCountsIP=new ArrayList<String>();
+        int maxCounts=0;      
+         for(String k:countsIP.keySet()){
+            if(countsIP.get(k)>=maxCounts){
+                maxCounts=countsIP.get(k);
+            }
+         }
+         for(String ip:countsIP.keySet()){
+            if(countsIP.get(ip)==maxCounts&&!maxCountsIP.contains(ip)){
+                maxCountsIP.add(ip);
+            }
+            }
+         return maxCountsIP;
+        }
+        
+     public HashMap<String, ArrayList<String>> iPsForDays(){
+         HashMap<String, ArrayList<String>> days=new HashMap<String, ArrayList<String>>();
+         for(LogEntry le:records){
+             String d=le.getAccessTime().toString().substring(4,10);
+             if(!days.containsKey(d)){
+                ArrayList<String> ipPerDay=new ArrayList<String>();
+                ipPerDay.add(le.getIpAddress());
+                days.put(d,ipPerDay);
+             }else{
+                if(!days.get(d).contains(le.getIpAddress())){
+                    days.get(d).add(le.getIpAddress());
+                }
+             }
+         }
+         return days;
+        
+     }
+     public String dayWithMostIPVisits(HashMap<String, ArrayList<String>> days){
+        int numIP=0;
+        String day="";
+        for(String k:days.keySet()){
+            if(numIP<=days.get(k).size()){
+                numIP=days.get(k).size();
+                day=k;
+            }
+        }
+        return day;
+     }
      
-}
+     public ArrayList<String> iPsWithMostVisitsOnDay(HashMap<String, ArrayList<String>>days,String d){
+        ArrayList<String> ipList = new ArrayList<String>();
+        HashMap<String, Integer> counts=new HashMap<String, Integer>();
+        for(LogEntry le:records){
+            String ip=le.getIpAddress();
+            if(le.getAccessTime().toString().contains(d)){
+                if(!counts.containsKey(ip)){
+                    counts.put(ip,1);            
+                }else{
+                    counts.put(ip,counts.get(ip)+1);
+                }
+            }
+        }
+
+        /*int maxCounts=0;
+        for(String k:counts.keySet()){
+            if(counts.get(k)>=maxCounts){
+                maxCounts=counts.get(k);
+            }
+        }
+        System.out.println("maxCounts is "+maxCounts);
+        for(String k:counts.keySet()){
+            if(counts.get(k)==maxCounts&& !ipList.contains(k)){
+                ipList.add(k);
+            }
+        }*/
+        ipList=iPsMostVisits(counts);
+        return ipList;
+     
+     }
+    }

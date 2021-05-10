@@ -20,7 +20,7 @@ public class Tester
     public void testLogAnalyzer() {
         LogAnalyzer la=new LogAnalyzer();
         //la.readFile("short-test_log");
-        la.readFile("weblog-short_log");
+        la.readFile("weblog3-short_log");
         la.printAll();
     }
     public void testUniqueIP(){
@@ -34,5 +34,24 @@ public class Tester
         //System.out.println("This day has "+la.uniqueIPVisitsOnDay("Sep 30").size()+" visits");
         System.out.println("There are "+la.countUniqueIPsInRange(200,299)+" IPs status code from 200 to 299");
         //System.out.println("There are "+la.countUniqueIPsInRange(300,399)+" IPs status code from 300 to 399");
+    }
+    public void tester(){
+        LogAnalyzer la=new LogAnalyzer();
+        //la.readFile("weblog3-short_log");
+        la.readFile("weblog1_log");
+        HashMap<String, Integer> counts=la.countVisitsPerIP();
+        for(String key:counts.keySet()){
+            System.out.println(key+"\t"+counts.get(key));
+        }
+        System.out.println("max Number of counts is "+la.mostNumberVisitsByIP(counts));
+        System.out.println("max Counts IP are "+la.iPsMostVisits(counts));
+        HashMap<String, ArrayList<String>> days=la.iPsForDays();
+        for(String k:days.keySet()){
+            System.out.println(k+"\t"+days.get(k));
+        }
+        System.out.println("most visits day is "+la.dayWithMostIPVisits(days));
+        String d="Mar 17";
+        //System.out.println(days.get(d).toString());
+        System.out.println("most visits ips on "+d+" is "+la.iPsWithMostVisitsOnDay(days,d));
     }
 }
