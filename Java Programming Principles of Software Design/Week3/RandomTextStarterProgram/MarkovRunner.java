@@ -14,7 +14,7 @@ public class MarkovRunner {
         String st = fr.asString();
         st = st.replace('\n', ' ');
         MarkovZero markov = new MarkovZero();
-        markov.setRandom(42);
+        markov.setRandom(88);
         markov.setTraining(st);
         for(int k=0; k < 3; k++){
             String text = markov.getRandomText(500);
@@ -22,22 +22,61 @@ public class MarkovRunner {
         }
     }
     
-        public void runMarkovOne() {
+    public void runMarkovOne() {
          FileResource fr = new FileResource();
          String st = fr.asString();
          st = st.replace('\n', ' ');
          MarkovOne markov = new MarkovOne();
-         markov.setRandom(42);
+         markov.setRandom(273);
          markov.setTraining(st);
          for(int k=0; k < 3; k++){
              String text = markov.getRandomText(500);
              printOut(text);
-         }       		
-    	}
+         }              
+        }
+        
+        
+    public void runMarkovTwo() {
+         FileResource fr = new FileResource();
+         String st = fr.asString();
+         st = st.replace('\n', ' ');
+         //st="this is a test yes a test";
+         MarkovTwo markov = new MarkovTwo();
+         //markov.setRandom(42);
+         markov.setTraining(st);
+         for(int k=0; k < 3; k++){
+             String text = markov.getRandomText(50);
+             printOut(text);
+         }              
+        }
+    public void runMarkovFour() {
+         FileResource fr = new FileResource();
+         String st = fr.asString();
+         st = st.replace('\n', ' ');
+         MarkovFour markov = new MarkovFour();
+         markov.setRandom(371);
+         markov.setTraining(st);
+         for(int k=0; k < 3; k++){
+             String text = markov.getRandomText(500);
+             printOut(text);
+         }              
+        }
     
-    	
-    	
-    	
+     
+    public void runMarkovModel() {
+         FileResource fr = new FileResource();
+         String st = fr.asString();
+         st = st.replace('\n', ' ');
+         MarkovModel markov = new MarkovModel(8);
+         markov.setRandom(365);
+         markov.setTraining(st);
+         for(int k=0; k < 3; k++){
+             String text = markov.getRandomText(500);
+             printOut(text);
+         }              
+    }   
+        
+        
     private void printOut(String s){
         String[] words = s.split("\\s+");
         int psize = 0;
